@@ -1,0 +1,36 @@
+<% content_for :title do %>		
+	<h2><%= @listing_type.name %></h2>
+	<p id="page-intro">Listing type information.</p>
+	<div class="clear"></div>
+<% end %>
+
+<div class="content-box column-left">
+	<div class="content-box-header">
+		<h3><%= @listing_type.name %></h3>
+		<div class="clear"></div>		
+	</div>
+	
+	<div class="content-box-content">
+		<%= simple_format(@listing_type.description) %>
+	</div>
+</div>
+
+<div class="content-box column-right">
+	<div class="content-box-header">
+		<h3>Controls</h3>
+	</div>
+	
+	<div class="content-box-content">
+		<p>
+			<img src="/images/admin/icons/arrow-180.png" /> <%= link_to 'Back to List', admin_listing_types_path %><br />
+			<img src="/images/admin/icons/pencil.png" /> <%= link_to 'Edit', edit_admin_listing_type_path(@listing_type) %><br />
+			<% if @listing_type.listings.empty? %>
+				<img src="/images/admin/icons/cross.png" /> <%= link_to 'Remove', admin_listing_type_path(@listing_type), :method => :delete, :confirm => 'Are you sure you want to delete this listing type?' %><br />
+			<% end %>
+		</p>
+	</div>
+	
+</div>
+<div class="clear"></div>
+
+

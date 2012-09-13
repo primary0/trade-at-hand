@@ -1,0 +1,148 @@
+<% content_for :title, "User Registration" %>
+<div id="main">
+
+		<div id="register">
+		
+			<h2>New User Registration</h2>
+			
+			<div class="form">
+				<% form_for @user, :html => {:id => 'validatedForm'} do |f| %>
+
+					<%= error_messages_for 'user', :header_message => "You have some errors in your registration form.", :message => "Please review the following:" %>
+
+					<fieldset>
+
+						<div>
+							<div class="left">
+								<label>Phone (+960)</label>
+							</div>
+							<div class="right">
+								<%= f.text_field :phone, :class => "validate[required, custom[onlyNumber]] input" %>
+								<div class="instructions">You must provide a valid phone number.</div>
+							</div>
+						</div>
+						<div class="clear"></div>
+
+						<div>
+							<div class="left">
+								<%= f.label :email %>
+							</div>
+							<div class="right">
+								<%= f.text_field :email, :class => "validate[required,custom[email]] input" %>
+								<div class="instructions">You must provide a valid email address.</div>							
+							</div>
+						</div>
+
+					</fieldset>
+
+
+					<fieldset>
+						<legend>Your Password</legend>
+						<div>
+							<div class ="left">
+								<%= f.label :password %>
+							</div>
+							<div class="right">
+								<%= f.password_field :password, :class => "validate[required,length[6,32]] input" %>
+								<div class="instructions">Password should be at least 6 characters long.</div>							
+							</div>
+						</div>
+						<div class="clear"></div>
+
+						<div>
+							<div class="left">
+								<%= f.label :password_confirmation %>
+							</div>
+							<div class="right">
+								<%= f.password_field :password_confirmation, :class => "validate[required,length[6,32]] input" %>
+								<div class="instructions">Password confirmation must match your password.</div>
+							</div>
+						</div>
+					</fieldset>
+
+					<fieldset>
+						<legend>Name</legend>
+						<div>
+							<div class="left">
+								<%= f.label :full_name %>
+							</div>
+							<div class="right">					
+								<%= f.text_field :full_name, :class => "validate[required,custom[onlyLetter]] input" %>
+								<div class="instructions">Your full name will be displayed with your listings so that people can contact you.</div>							
+							</div>
+						</div>
+						<div class="clear"></div>
+
+				  </fieldset>	
+
+					<fieldset>
+						<legend>Address</legend>
+						<div>
+							<div class="left">
+								<%= f.label :address %>
+							</div>
+							<div class="right">
+								<%= f.text_field :address, :class => "validate[required] input" %>
+								<div class="instructions">Enter your current resident address.</div>
+							</div>
+						</div>
+						<div class="clear"></div>
+
+						<div>
+							<div class="left">
+								<%= f.label :street %>
+							</div>
+							<div class="right">
+								<%= f.text_field :street, :class => "input" %>
+								<div class="instructions">Current resident address street.</div>
+							</div>
+						</div>
+						<div class="clear"></div>
+
+
+						<div>
+							<div class="left">
+								<label>Atoll</label>
+							</div>
+							<div class="right">
+								<%= select_tag "atoll_id", options_from_collection_for_select(@atolls, :id, :name, @selected_id), :class => "input" %>
+								<div class="instructions">Current atoll of residence.</div>
+							</div>
+						</div>
+						<div class="clear"></div>
+
+
+						<div>
+							<div class="left">
+								<label>Island</label>
+							</div>
+							<div class="right">
+								<%= f.collection_select :island_id, @islands, :id, :name, {}, :class => "input" %>
+								<div class="instructions">Current island of residence.</div>
+							</div>
+						</div>
+					</fieldset>
+
+					<fieldset>
+						<legend>About Yourself</legend>
+						<div>
+							<div class="left">
+								<label>About Yourself</label>
+							</div>
+							<div class="right">
+								<%= f.text_area :description, :class => "textarea", :cols => "40", :rows => "10" %>
+								<div class="instructions">A brief introduction about yourself so that other visitors and potential traders will know more about you and the products you trade.</div>
+							</div>
+						</div>
+					</fieldset>
+
+					<div class="right">
+						<%= f.submit "Submit" %>
+					</div>
+
+				<% end %>
+			</div><!--end registerform-->
+		
+		</div><!--end register-->		
+
+</div><!--end main-->

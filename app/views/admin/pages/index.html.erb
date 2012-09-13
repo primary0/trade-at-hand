@@ -1,0 +1,51 @@
+<% content_for :title do %>		
+	<h2>Pages</h2>
+	<p id="page-intro">The static content pages.</p>
+	<div class="clear"></div>
+<% end %>
+
+
+<div class="content-box">
+	
+	<div class="content-box-header">
+		<h3>Pages</h3>
+		<div class="clear"></div>
+	</div>
+	
+	<div class="content-box-content">
+		
+		<% unless @pages.empty? %>
+			<table class="sortable_table">
+				<thead>
+					<tr>
+						<th>Title</th>
+						<th class="centered">Created</th>
+						<th class="centered">Updated</th>						
+					</tr>
+				</thead>
+			
+				<tbody>
+					<% @pages.each do |page| %>
+					<tr>
+						<td><%= link_to page.title, admin_page_path(page) %></td>
+						<td class="centered"><%= page.created_at.to_date %></td>
+						<td class="centered"><%= page.updated_at.to_date %></td>						
+						<td>
+							<%= link_to image_tag('/images/admin/icons/information.png'), admin_page_path(page) %>	
+						</td>
+					</tr>				
+					<% end %>		
+				</tbody>
+				
+				<tfoot>
+					<tr>
+						<td colspan="6">
+							<%= will_paginate @pages %>
+							<div class="clear"></div>
+						</td>
+					</tr>
+				</tfoot>
+			</table>
+		<% end %>			
+	</div>
+</div>

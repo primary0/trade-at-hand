@@ -1,0 +1,10 @@
+<br />
+<h2>Search by Location</h2>
+<% form_tag '', :method => 'GET' do %> <%= select_tag 'atoll', options_from_collection_for_select(Atoll.all, :id, :name, :selected => atoll.id), :prompt => "Choose an Atoll",
+:onchange => 'this.form.submit()' %>		
+<%= javascript_tag "$$('.atoll input').each(Element.hide)" %>
+<% end %>
+<% form_tag '', :method => 'GET' do %> <%= select_tag 'island', options_from_collection_for_select(islands, :id, :name, :selected => island.id), :prompt => "Choose Island",
+:onchange => 'this.form.submit()' %>		
+<%= javascript_tag "$$('.island input').each(Element.hide)" %>
+<% end %>

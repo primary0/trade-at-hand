@@ -1,0 +1,32 @@
+<% content_for :title do %>		
+	<h2>Add or Modify Product Category</h2>
+	<p id="page-intro">Add a or modify product category.</p>
+	<div class="clear"></div>
+<% end %>
+
+
+<div class="content-box">
+	
+	<div class="content-box-header">
+		<h3>Product Category Form</h3>
+		<div class="clear"></div>
+	</div>
+	<div class="content-box-content">
+		<% form_for ([:admin, @product_category]), :html => {:id => 'validatedForm'}do |f|  %>
+			<fieldset>
+				<p>
+					<%= f.label :name %>
+			    <%= f.text_field :name, :class => 'validate[required,custom[onlyLetter]] text-input medium-input' %>					
+				</p>
+				<p>
+					<%= f.label :description %>
+			    <%= f.text_area :description, :class => 'validate[required] text-input textarea', :rows => 15 %>					
+				</p>
+				<p>
+				  <%= f.submit "Submit", :class => 'button' %> | <a href="javascript:history.back()">Back</a>
+				</p>
+			</fieldset>
+			<div class="clear"></div>
+		<% end %>
+	</div>
+</div>

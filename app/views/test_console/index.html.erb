@@ -1,0 +1,15 @@
+<% content_for :title, "Testing Console" %>
+
+<div id="main">
+		<div id="test">		
+			<h2>Testing Console</h2>			
+			<% form_tag '/test_console/test' do %>
+				<%= text_field_tag :message, {}, :class => "input", :size => "70"  %>
+				<%= hidden_field_tag "msisdn", "9999999" %>
+				<%= submit_tag "Submit" %>
+			<% end %>
+			<div style="font-size:18px;margin-top:50px;">
+				<%= @response %>
+			</div>		
+		</div><!--end article-->
+</div><!--end main-->

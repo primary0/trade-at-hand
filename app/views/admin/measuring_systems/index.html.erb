@@ -1,0 +1,54 @@
+<% content_for :title do %>		
+	<h2>Measuring Systems</h2>
+	<p id="page-intro">Measuring systems and units used to define quantity in listings.</p>
+	<div class="clear"></div>
+<% end %>
+
+
+<div class="content-box">
+	
+	<div class="content-box-header">
+		<h3>Measuring Systems</h3>
+		<ul class="content-box-tabs">
+			<%= link_to image_tag('admin/icons/plus.png'), new_admin_measuring_system_path %>
+		</ul>
+		<div class="clear"></div>
+	</div>
+	
+	<div class="content-box-content">
+		
+		<% unless @measuring_systems.empty? %>
+			<table class="sortable_table">
+				<thead>
+					<tr>
+						<th>Name</th>
+						<th class="centered">No. of Products</th>
+						<th class="centered">No. of Listings</th>						
+					</tr>
+				</thead>
+			
+				<tbody>
+					<% @measuring_systems.each do |measuring_system| %>
+					<tr>
+						<td><%= link_to measuring_system.name, admin_measuring_system_path(measuring_system) %></td>
+						<td class="centered"><%= measuring_system.products.count %></td>						
+						<td class="centered"><%= measuring_system.listings.count %></td>
+						<td>
+							<%= link_to image_tag('/images/admin/icons/information.png'), admin_measuring_system_path(measuring_system) %>	
+						</td>
+					</tr>				
+					<% end %>		
+				</tbody>
+				
+				<tfoot>
+					<tr>
+						<td colspan="6">
+							<%= will_paginate @measuring_systems %>
+							<div class="clear"></div>
+						</td>
+					</tr>
+				</tfoot>
+			</table>
+		<% end %>			
+	</div>
+</div>

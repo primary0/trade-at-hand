@@ -1,0 +1,49 @@
+<% content_for :title, "Buying Requests" %>
+
+<div id="main">
+	<div id="listings">
+		<h2><%= listings_title("as Buying Requests") %></h2>
+		<% if @listings.empty? %>
+			There are no buy listings for this product at the moment.
+		<% else %>
+			<table class="leads_table" summary="Recent Leads">
+				<thead>
+					<tr>
+						<th scope="col"><%= link_to "Quantity", buy_path(:quantity_by => @quantity_by) %></th>
+						<th scope="col"><%= link_to "Product", buy_path(:product_by => @product_by) %></th>
+						<th scope="col"><%= link_to "Person", buy_path(:price_by =>  @price_by) %></th>
+						<th scope="col">Location</th>
+						<th scope="col"><%= link_to "Date", buy_path(:date_by => @date_by) %></th>
+						<th scope="col"></th>
+					</tr>
+				</thead>
+				<tbody>
+					<% @listings.each do |listing| -%>
+						<tr class="<%= cycle('odd', 'even') %>">
+							<td><%= listing.real_quantity %></td>
+							<td><%= listing.product.name %></td>
+							<td><%= listing.user.full_name %></td>				
+							<td><%= listing.location %></td>
+							<td><%= listing.created_at.to_date.to_formatted_s(:rfc822) %></td>
+							<td><%= link_to image_tag("/images/icons/information.png"), listing_path(listing), {:title => "Show Details"} %></td>	
+						</tr>
+					<% end %>
+				</tbody>
+			</table>
+			<%= will_paginate @listings %>
+		<% end %>		
+	</div><!--end listings-->		
+
+	<div id="sidebar">
+		<h2>Select a Product</h2>				
+		<% form_tag '/buying-requests', :method => 'GET' do %> <%= select_tag 'product', option_groups_from_collection_for_select(ProductCategory.all, :products, :name, :id, :name), {:multiple => :true, :class => "multibox"},
+		:onchange => 'this.form.submit()' %>
+		<%= javascript_tag "$$('.product input').each(Element.hide)" %>
+		<% end %>
+
+		<%= render :partial => "filters", :locals => {:atoll => @atoll, :island => @island, :islands => @islands} %>
+	
+	</div><!--end sidebar-->
+		
+
+</div><!--end main-->

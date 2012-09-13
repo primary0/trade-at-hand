@@ -1,0 +1,35 @@
+<% content_for :title do %>		
+	<h2><%= @setting.name %></h2>
+	<p id="page-intro">Setting information.</p>
+	<div class="clear"></div>
+<% end %>
+
+<div class="content-box column-left">
+	<div class="content-box-header">
+		<h3><%= @setting.name %></h3>
+		<div class="clear"></div>		
+	</div>
+	
+	<div class="content-box-content">
+		<p><strong>Setting value:</strong> <%= @setting.value %></p>
+		<%= simple_format(@setting.description) %>		
+	</div>
+</div>
+
+<div class="content-box column-right">
+	<div class="content-box-header">
+		<h3>Controls</h3>
+	</div>
+	
+	<div class="content-box-content">
+		<p>
+			<img src="/images/admin/icons/arrow-180.png" /> <%= link_to 'Back to List', admin_settings_path %><br />
+			<img src="/images/admin/icons/pencil.png" /> <%= link_to 'Edit', edit_admin_setting_path(@setting) %><br />
+			<img src="/images/admin/icons/cross.png" /> <%= link_to 'Remove', admin_setting_path(@setting), :method => :delete, :confirm => 'Are you sure you want to delete this setting?' %><br />
+		</p>
+	</div>
+	
+</div>
+<div class="clear"></div>
+
+

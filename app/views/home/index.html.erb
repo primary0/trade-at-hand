@@ -1,0 +1,92 @@
+<% content_for :title, "Welcome" %>
+
+<div id="main">
+	
+	<% unless current_user %>	
+	<div id="featured">
+		
+		<div id="intro">
+			<h2>Welcome to Maldives Leads</h2>
+			<p>MALDIVES LEADS (Mv.Leads) is a Maldivian trade lead and match-making platform for agricultural, fish and handicrafts items, where sellers and buyers can advertise their goods and needs. It was built with the aim to link Maldivian producers and traders with tourism resorts.</p>
+			<p>It is a unique marketplace where Sellers and Buyers can post their offers to sell and buy with their mobile phone, by <%= link_to "sending an SMS", :controller => "articles", :action => "help", :id => 4 %> to the platform. Sellers and Buyers can also access the system by using mvleads website to view, post and edit offers. Welcome!</p>
+		</div><!--end intro-->
+		
+		<div id="loginbox">
+			
+		</div><!--end loginbox-->
+		
+	</div><!--end featured-->
+	<div class="clear"></div>
+	<% end %>
+	<div id="recentleads">
+
+	<div class="buying_selling_links">			
+		<div class="left_generic">
+			<h2>Recent Sale Leads</h2>				
+		</div>			
+		<div class="right_generic">
+			<%= link_to "Selling", :controller => "home", :action => "index" %>/<%= link_to "Buying", :controller => "home", :action => "index2" %>
+		</div>	
+	</div>
+	<div class="clear"></div>				
+	<div class="bottom_border"></div>
+			
+	<% ProductCategory.all.each do |product_category| %>
+		<% if !product_category.listings.sell.active.latest.empty? %>
+		
+			<%= product_category_title_with_icon(true, product_category.name, product_category.name, product_category.id) %>
+
+			<table class="leads_table" summary="Recent Leads">
+				<thead>
+					<tr>
+						<th scope="col">Type</th>						
+						<th scope="col">Quantity</th>
+						<th scope="col">Product</th>
+						<th scope="col">Price</th>
+						<th scope="col">Location</th>
+						<th scope="col">Date</th>
+						
+						<th scope="col"></th>
+					</tr>
+				</thead>
+				<tbody>
+					<% product_category.listings.sell.active.latest.each do |a| %>
+						<tr class="<%= cycle("odd", "even") -%>">
+							<td><%= a.listing_type.name %></td>							
+							<td><%= a.real_quantity %></td>
+							<td><%= a.product.name %></td>
+							<td><%= a.rate %></td>
+							<td><%= a.location %></td>
+							<td><%= a.created_at.to_date.to_formatted_s(:rfc822) %></td>							
+							<td><%= link_to image_tag("/images/icons/information.png"), listing_path(a) %></td>	
+						</tr>												
+					<% end %>
+				</tbody>
+			</table>			
+		<% end %>
+	<% end %>
+		
+	</div><!--end recentleads-->
+	
+	<div id="sidebar">
+		
+		<h2>Select a Product</h2>				
+		<% form_tag '/for-sale', :method => 'GET' do %> <%= select_tag 'product', option_groups_from_collection_for_select(ProductCategory.all, :products, :name, :id, :name), {:multiple => :true, :class => "multibox"},
+		:onchange => 'this.form.submit()' %>
+		<%= javascript_tag "$$('.product input').each(Element.hide)" %>
+		<% end %>
+		
+		<br />
+		<h2>Search by Location</h2>
+		<% form_tag '/for-sale', :method => 'GET' do %> <%= select_tag 'atoll', options_from_collection_for_select(Atoll.all, :id, :name, :selected => @atoll.id), :prompt => "Choose an Atoll",
+		:onchange => 'this.form.submit()' %>		
+		<%= javascript_tag "$$('.atoll input').each(Element.hide)" %>
+		<% end %>
+		<% form_tag '/for-sale', :method => 'GET' do %> <%= select_tag 'island', options_from_collection_for_select(@islands, :id, :name, :selected => @island.id), :prompt => "Choose Island",
+		:onchange => 'this.form.submit()' %>		
+		<%= javascript_tag "$$('.island input').each(Element.hide)" %>
+		<% end %>	
+				
+	</div><!--end sidebar-->
+	
+</div><!--end main-->

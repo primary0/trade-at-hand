@@ -1,0 +1,35 @@
+<% content_for :title, "Search Results" %>
+
+<div id="main">
+	<div id="listings">
+		<h2>Search Results (<%= @listings.length %> matches)</h2>
+		<% if !@listings || @listings.empty? %>
+			You search returned no results.
+		<% else %>
+			<table class="leads_table" summary="Recent Leads">
+				<thead>
+					<tr>
+						<th scope="col">Type</th>
+						<th scope="col">Product</th>
+						<th scope="col">User</th>						
+						<th scope="col">Location</th>
+						<th scope="col"></th>
+					</tr>
+				</thead>
+				<tbody>
+					<% @listings.each do |listing| %>
+						<tr class="<%= cycle('odd', 'even') %>">
+							<td><%= listing.listing_type.name %></td>
+							<td><%= listing.product.name %></td>
+							<td><%= listing.user.full_name %></td>
+							<td><%= listing.location %></td>
+							<td><%= link_to image_tag("/images/icons/information.png"), listing_path(listing) %></td>	
+						</tr>
+					<% end %>
+				</tbody>
+			</table>
+			<%= will_paginate @listings %>
+		<% end %>		
+	</div><!--end listings-->		
+	
+</div><!--end main-->

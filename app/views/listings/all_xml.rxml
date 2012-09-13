@@ -1,0 +1,18 @@
+xml.instruct!
+xml.rss :version => '2.0', "xmlns:dc" => "http://purl.org/dc/elements/1.1/" do
+  xml.channel do
+    xml.title 'mvLeads - Latest Listings'
+    xml.description 'Latest sell and buy listings for all product categories.'
+    xml.link url_for(:controller => 'home', :action => 'index')
+    xml.pubDate CGI.rfc1123_date(@listings.first.created_at)
+      
+    for listing in @listings
+	    xml.item do
+	      xml.title listing.rss_title
+	      xml.description listing.rss_description
+	      xml.pubDate CGI.rfc1123_date(listing.created_at)
+	      xml.link url_for(:controller => :listings, :action => :show, :id => listing)
+      end
+    end
+  end
+end

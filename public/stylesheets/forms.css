@@ -1,0 +1,151 @@
+/*SEARCH BOX STYLES*/
+
+#search input, #search textarea{		
+width: 252px;
+height: 25px; 
+border:1px solid #ddd;
+background:#fff url(/images/form_input.gif) repeat-x;
+background-image: url(/images/search_bg.gif);
+background-repeat: no-repeat;
+background-position: right top;
+padding:3px;
+font-family: Georgia, Helvetica, sans-serif;
+font-size: 18px;
+color: gray;
+}
+
+/*FORM STYLES */
+
+/* Form container class */
+.form {
+margin: 10px;
+font-family: Verdana, Arial, Helvetica, sans-serif;
+}
+
+.form .left {
+	float:left;
+	text-align:right;
+	width:250px;
+	
+}
+
+.form .right {
+	float:right;
+	text-align:left;
+	width:600px;
+}
+
+fieldset {
+margin: 25px 0 25px 0;
+border-top: 1px solid #BC8F8F;
+}
+
+fieldset div {
+margin: 10px 0 10px 0;
+}
+
+legend {
+margin: 10px 0 10px 0;
+color: #999999;
+font-size: 14px;
+}
+
+label{
+display:block;
+clear:both;
+font-size: 14px;
+padding:10px 0 5px 0;
+}	
+
+.instructions {
+font-size: 12px;
+color: #999999;
+margin: 5px 0 0 0;	
+width: 350px;
+}
+
+.input{		
+height: 25px; 
+border:1px solid #999;
+background:#fff url(/images/form_input.gif) repeat-x;
+padding:5px;
+font-size: 16px;
+color: gray;
+}
+
+.select{
+height: 30px; 
+border:1px solid #ddd;
+background:#fff url(/images/form_input.gif) repeat-x;
+padding:5px;
+font-size: 14px;
+color: gray;
+}
+
+.textarea{
+border:1px solid #999;
+background:#fff url(/images/form_input.gif) repeat-x;
+padding:5px;
+font-size: 14px;
+color: gray;
+}
+
+.checkbox {
+height: 14px;
+width: 20px;
+}
+
+.checklabel {
+font-size: 11px;
+line-height: 10px;	
+}		
+
+.submit{
+text-align:right;
+}	
+
+.button{
+border:1px solid red;
+color:#fff;
+background:url(/images/create_btn.gif) no-repeat 0 0;
+font-size: 14px;
+cursor:pointer;
+text-align:center;
+padding: 5px 10px 5px 10px;
+}
+
+.settings {
+font-size: 11px;
+line-height: 10px;	
+/*text-align: right;*/
+/*margin-right: 85px;*/
+}
+
+.measuring_system_tag {
+	font-size: 14px;
+	font-weight: bold;
+	color: #999999;
+}
+
+/* ERRORS */
+
+#errorExplanation {
+	margin: 10px 20px 10px 20px;
+	padding: 0 0 25px 25px;
+	background-color: #BC8F8F;
+	border: 1px solid red;
+}
+
+#errorExplanation h2 {
+	font-size: 16px;
+	text-decoration: underline;
+}
+
+#errorExplanation ul {
+	margin-left: 20px;
+	list-style-type:circle
+}
+
+#errorExplanation li {
+	margin-top: 5px;
+}

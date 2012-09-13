@@ -1,0 +1,52 @@
+<% content_for :title do %>		
+	<h2>Settings</h2>
+	<p id="page-intro">System level and business logic settings.</p>
+	<div class="clear"></div>
+<% end %>
+
+
+<div class="content-box">
+	
+	<div class="content-box-header">
+		<h3>Settings</h3>
+		<ul class="content-box-tabs">
+			<%= link_to image_tag('admin/icons/plus.png'), new_admin_setting_path %>
+		</ul>
+		<div class="clear"></div>
+	</div>
+	
+	<div class="content-box-content">
+		
+		<% unless @settings.empty? %>
+			<table class="sortable_table">
+				<thead>
+					<tr>
+						<th>Name</th>
+						<th>Value</th>
+					</tr>
+				</thead>
+			
+				<tbody>
+					<% @settings.each do |setting| %>
+					<tr>
+						<td><%= link_to setting.name, admin_setting_path(setting) %></td>
+						<td><%= setting.value %></td>
+						<td>
+							<%= link_to image_tag('/images/admin/icons/information.png'), admin_setting_path(setting) %>	
+						</td>
+					</tr>				
+					<% end %>		
+				</tbody>
+				
+				<tfoot>
+					<tr>
+						<td colspan="6">
+							<%= will_paginate @settings %>
+							<div class="clear"></div>
+						</td>
+					</tr>
+				</tfoot>
+			</table>
+		<% end %>			
+	</div>
+</div>

@@ -1,0 +1,4 @@
+User-Agent: *
+Disallow: /user_session/
+Disallow: /users/new
+Disallow: /listings/new

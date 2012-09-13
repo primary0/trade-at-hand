@@ -1,0 +1,65 @@
+<% content_for :title do %>		
+	<h2><%= @listing_type.name %> Listings</h2>
+	<p id="page-intro">User submitted <%= @listing_type.name.downcase %> items.</p>
+	<div class="clear"></div>
+<% end %>
+
+
+<div class="content-box">
+	
+	<div class="content-box-header">
+		<h3><%= @listing_type.name %> items</h3>
+		<div class="clear"></div>
+	</div>
+	
+	<div class="content-box-content">
+		
+		<% unless @listings.empty? %>
+			<table class="sortable_table">
+				<thead>
+					<tr>
+						<th>Name</th>
+						<th>Product</th>
+						<th class="centered">Quantity</th>
+						<th>Price</th>
+						<th>Location</th>
+						<th>Expiry</th>
+					</tr>
+				</thead>
+			
+				<tbody>
+					<% @listings.each do |listing| %>
+					<tr>
+						<td><%= link_to listing.user.full_name, admin_listing_path(listing) %></td>
+						<td><%= listing.product.name %></td>
+						<td class="centered"><%= listing.real_quantity %></td>
+						<td><%= listing.rate %></td>
+						<td><%= listing.location %></td>
+						<td><%= listing.ends_in %> days (<%= listing.expired %>)</td>
+						<td>
+							<%= link_to image_tag('/images/admin/icons/information.png'), admin_listing_path(listing) %>	
+							<%= link_to image_tag('/images/admin/icons/cross.png'), admin_listing_path(listing), :method => :delete, :confirm => "Are you sure you want to delete this item?" %>
+						</td>
+					</tr>				
+					<% end %>		
+				</tbody>
+				
+				<tfoot>
+					<tr>
+						<td colspan="6">
+							<%= will_paginate @listings %>
+							<div class="clear"></div>
+						</td>
+					</tr>
+				</tfoot>
+			</table>
+		<% else %>
+			<div class="notification information png_bg">
+				<a href="#" class="close"><img src="/images/admin/icons/cross_grey_small.png" title="Close this notification" alt="close" /></a>
+				<div>
+					There are no items listed in this category.
+				</div>
+			</div>		
+		<% end %>			
+	</div>
+</div>

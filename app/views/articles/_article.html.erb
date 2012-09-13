@@ -1,0 +1,23 @@
+<% content_for :title, @article_category.name %>
+
+<div id="main">
+
+		<div id="article">		
+			<div>
+				<div id="article_description">					
+					<h2><%= @article.title %></h2>					
+					<%= simple_format(@article.description) %>
+				</div>
+				<div id="article_sidebar">
+					<h3><%= @article_category.name %></h3>					
+					<ul>
+					<li><%= link_to "Introduction", :controller => "articles", :action => controller.action_name, :id => nil %></li>						
+					<% @article_category.articles.each do |article| %>
+							<li><%= link_to article.title.titleize, :controller => "articles", :action => controller.action_name, :id => article %></li>
+					<% end %>
+					</ul>
+				</div>
+			</div>		
+		</div><!--end article-->
+
+</div><!--end main-->

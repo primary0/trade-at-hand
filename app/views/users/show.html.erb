@@ -1,0 +1,170 @@
+<% content_for :title, "Profile" %>
+
+<div id="main">
+	<div class="user-container">
+		<div id="user">
+			<h2><%= @user.full_name %> (<%= recommendations_count(@user) %>)</h2>
+
+			<div id="user_action_links">
+				<% if current_user %>
+					<% if current_user == @user %>
+						<%= link_to "Edit Profile", edit_user_path(@user) %>
+					<% else %>
+							<%= recommendation_link %> |
+							<%= address_book_link %>											
+					<% end %>				
+				<% end %>
+			</div>
+			<div class="clear"></div>
+			
+			<table id="user_table1" summary="User Details">
+				<% if @user.email %>
+			  	<tr>
+					<th scope="row">Email</th>
+					<td><%= @user.email %></td>
+			  	</tr>
+				<% end %>
+			  <tr>
+				<th scope="row">Phone</th>
+				<td><%= @user.phone %></td>
+			  </tr>
+			</table>
+			
+			<table id="user_table2" summary="User Details">
+				<% if @user.address && @user.street %>
+			  	<tr>
+					<th scope="row">Address</th>
+					<td><%= @user.address %></td>
+			  	</tr>
+			  	<tr>
+					<th scope="row">Street</th>
+					<td><%= @user.street %></td>
+			  	</tr>
+				<% end %>
+			  <tr>
+				<th scope="row">Location</th>
+				<td><%= @user.location %></td>
+			  </tr>
+			  
+			</table>
+			
+		</div><!--end user-->
+
+		<div class="clear"></div>
+
+		<% if @user.description %>
+			<div id="description">
+				<p><%=h @user.description %></p>			
+			</div><!--end details-->
+		<% end %>
+		<div class="clear"></div>
+		
+		<div id="mylistings">
+			<h3>Current Listings</h3>				
+				<% if @user.listings.active.empty? %>
+					There are no active listings at the moment.
+				<% else %>
+					<table class="leads_table" summary="My Leads">
+						<thead>
+							<tr>
+								<th scope="col">Type</th>
+								<th scope="col">Quantity</th>
+								<th scope="col">Product</th>
+								<th scope="col">Price</th>
+								<th scope="col">Location</th>
+								<th scope="col"></th>
+							</tr>
+						</thead>
+						<tbody>
+							<% @user.listings.active.each do |listing| %>
+								<tr class="<%= cycle('odd', 'even') %>">
+									<td><%= listing.listing_type.name %></td>
+									<td><%= listing.real_quantity %></td>
+									<td><%= listing.product.name %></td>
+									<td><%= listing.rate %></td>
+									<td><%= listing.location %></td>
+									<td>
+										<%= link_to image_tag("/images/icons/information.png", :alt => "Show more information"), listing_path(listing) %>
+										<% if listing.user == current_user %>
+											<%= link_to image_tag("/images/icons/pencil.png", :alt => "Edit listing"), edit_listing_path(listing) %>
+											<% if listing.sold == false %>
+												<%= link_to image_tag("/images/icons/auction-hammer.png", :alt => "Mark listing as sold"), sold_listing_path(listing), :method => :put, :confirm => "Are you sure you want do mark this listing as sold?" %>											
+											<% end %>											
+											<%= link_to image_tag("/images/icons/cross.png", :alt => "Delete listing"), listing_path(listing), :method => :delete, :confirm => "Are you sure you want do delete this listing?" %>
+
+										<% end %>
+									</td>
+								</tr>
+							<% end %>
+						</tbody>
+					</table>
+				<% end %>
+		</div><!--end mylistings-->
+		<div class="clear"></div>
+		
+		<div id="my_previous_listings">
+			<h3>Past Listings</h3>				
+				<% if @user.listings.inactive.empty? %>
+					There are no archived listings at the moment.
+				<% else %>
+					<table class="leads_table" summary="My Leads">
+						<thead>
+							<tr>
+								<th scope="col">Type</th>
+								<th scope="col">Quantity</th>
+								<th scope="col">Product</th>
+								<th scope="col">Price</th>
+								<th scope="col">Location</th>
+								<th scope="col"></th>
+							</tr>
+						</thead>
+						<tbody>
+							<% @user.listings.inactive.each do |listing| %>
+								<tr class="<%= cycle('odd', 'even') %>">
+									<td><%= listing.listing_type.name %></td>
+									<td><%= listing.real_quantity %></td>
+									<td><%= listing.product.name %></td>
+									<td><%= listing.rate %></td>
+									<td><%= listing.location %></td>
+									<td>
+										<%= link_to image_tag("/images/icons/information.png", :alt => "Show more information"), listing_path(listing) %>
+									</td>
+								</tr>
+							<% end %>
+						</tbody>
+					</table>
+				<% end %>
+		</div><!--end mylistings-->
+		<div class="clear"></div>		
+		
+		<% if current_user && @user == current_user && !@user.contacts.empty? %>	
+			<div id="contacts">
+				<h3>Contacts</h3>
+				
+					<table class="misc_table" summary="Contacts">
+						<thead>
+							<tr>
+								<th scope="col">Name</th>
+								<th scope="col">Phone</th>								
+								<th scope="col">Location</th>
+								<th scope="col"></th>
+							</tr>
+						</thead>
+						<tbody>
+							<% @user.contacts.all.each do |contact| %>
+								<tr class="<%= cycle('odd', 'even') %>">
+									<td><%= contact.associate.full_name %></td>
+									<td><%= contact.associate.phone %></td>									
+									<td><%= contact.associate.location %></td>
+									<td>
+										<%= link_to image_tag("/images/icons/information.png"), user_path(contact.associate) %>
+										<%= link_to image_tag("/images/icons/cross.png"), contact_path(contact), :method => :delete, :confirm => "Are you sure you want to delete this contact?" %>
+									</td>
+								</tr>
+							<% end %>
+						</tbody>
+					</table>		
+			</div><!--end contacts-->
+		<% end %>				
+	</div>
+</div><!--end main-->

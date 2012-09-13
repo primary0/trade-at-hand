@@ -1,0 +1,48 @@
+<% content_for :title do %>		
+	<h2>Modify Listing</h2>
+	<p id="page-intro">Modify user created listing..</p>
+	<div class="clear"></div>
+<% end %>
+
+
+<div class="content-box">
+	
+	<div class="content-box-header">
+		<h3>Listing Form</h3>
+		<div class="clear"></div>
+	</div>
+	<div class="content-box-content">
+		<% form_for ([:admin, @listing]), :html => {:id => 'validatedForm'} do |f|  %>
+			<fieldset>
+				<p>
+					<%= f.label :listing_type %>
+					<% @listing_types = ListingType.find(:all) %>					
+			    <%= f.collection_select(:listing_type_id, @listing_types, :id, :name) %>					
+				</p>
+				<p>
+					<% @products = Product.find(:all) %>					
+					<%= f.label :product %>
+			    <%= f.collection_select(:product_id, @products, :id, :name) %>
+				</p>
+				<p>
+					<%= f.label :quantity %>
+    			<%= f.text_field :quantity, :class => 'validate[required,custom[onlyNumber]] text-input small-input' %>
+				</p>
+			  <p>
+					<% @measuring_systems = MeasuringSystem.find(:all) %>	
+			    <%= f.label :price %>
+			    <%= f.text_field :price, :class => 'validate[required,custom[onlyNumber]] text-input small-input' %> per <%= f.collection_select(:measuring_system_id, @measuring_systems, :id, :name, :include_blank => "Units") %>
+			  </p>
+				<p>
+					<%= f.label :description %>
+					<%= f.text_area :description, :class => 'text-input textarea', :rows => 15 %>
+				</p>
+				<%= f.hidden_field :user_id %>					
+				<p>
+				  <%= f.submit "Submit", :class => 'button' %> | <a href="javascript:history.back()">Back</a>
+				</p>
+			</fieldset>
+			<div class="clear"></div>
+		<% end %>
+	</div>
+</div>

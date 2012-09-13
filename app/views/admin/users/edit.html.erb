@@ -1,0 +1,28 @@
+<% content_for :title do %>		
+	<h2>Edit User Profiles</h2>
+	<p id="page-intro">Edit user profiles.</p>
+	<div class="clear"></div>
+<% end %>
+
+
+<div class="content-box">
+	
+	<div class="content-box-header">
+		<h3>User Form</h3>
+		<div class="clear"></div>
+	</div>
+	<div class="content-box-content">
+		<% form_for ([:admin, @user]), :html => {:id => 'validatedForm'} do |f|  %>
+			<fieldset>
+				<p>
+					<%= f.label :phone %>
+			    <%= f.text_field :phone, :class => 'validate[required,custom[onlyNumber]] text-input medium-input' %>					
+				</p>
+				<p>
+				  <%= f.submit "Submit", :class => 'button' %> | <a href="javascript:history.back()">Back</a>
+				</p>
+			</fieldset>
+			<div class="clear"></div>
+		<% end %>
+	</div>
+</div>

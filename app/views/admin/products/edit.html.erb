@@ -1,0 +1,58 @@
+<% content_for :title do %>		
+	<h2>Add or Modify Product</h2>
+	<p id="page-intro">Add or modify product for category <%= @product_category.name %>.</p>
+	<div class="clear"></div>
+<% end %>
+
+
+<div class="content-box">
+	
+	<div class="content-box-header">
+		<h3><%= @product_category.name %> Product Form</h3>
+		<div class="clear"></div>
+	</div>
+	<div class="content-box-content">
+		<% form_for ([:admin, @product]), :html => {:id => 'validatedForm'} do |f|  %>
+			<fieldset>
+				<%= f.hidden_field :product_category_id %>				
+				<p>
+					<%= f.label :name %>
+			    <%= f.text_field :name, :class => 'validate[required,custom[onlyLetter]] text-input medium-input' %>					
+				</p>
+				<p>
+					<%= f.label :description %>
+			    <%= f.text_area :description, :class => 'text-input textarea', :rows => 15 %>					
+				</p>
+				<% if !@measuring_systems.empty? %>
+					<p>				
+						<%= f.label :measuring_system %>
+					  <% for measuring_system in @measuring_systems %>
+					  	<%= check_box_tag"product[measuring_system_ids][]", measuring_system.id, @product.measuring_systems.include?(measuring_system) %> <%= measuring_system.name %>
+					  <% end %>
+					</p>
+				<% end %>
+				<div id="keywords">
+					<p>
+						<label>Keywords</label>					
+					</p>
+					<% for keyword in @product.keywords %>
+						<% fields_for "product[keyword_attributes][]", keyword do |keyword_form| %>
+							<p>
+								<%= keyword_form.text_field :name, :index => nil, :class => 'validate[custom[onlyLetter]] text-input small-input' %>
+								<%= keyword_form.hidden_field :id, :index => nil %>
+								<%= keyword_form.hidden_field :should_destroy, :index => nil, :class => "should_destroy", :value => "0" %>								
+								<a href='#' class='existing_keyword_remove_link'>remove</a>
+							</p>							
+						<% end %>					
+					<% end %>
+				</div>
+				<%= link_to "Add Keyword", "#", :id => "add_keyword_link" %>
+				<br /><br /><br />
+				<p>
+				  <%= f.submit "Submit", :class => 'button' %> | <a href="javascript:history.back()">Back</a>
+				</p>
+			</fieldset>
+			<div class="clear"></div>
+		<% end %>
+	</div>
+</div>

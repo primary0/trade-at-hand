@@ -1,0 +1,103 @@
+<% content_for :title do %>		
+	<h2>Users</h2>
+	<p id="page-intro">Registered users</p>
+	<div class="clear"></div>
+<% end %>
+
+<div class="content-box">
+	
+	<div class="content-box-header">
+		<h3>Users</h3>
+		<ul class="content-box-tabs">
+			<li><a href="#tab1" class="default-tab">Active</a></li>
+			<li><a href="#tab2">Inactive</a></li>
+		</ul>		
+		<div class="clear"></div>
+	</div>
+
+	<div class="content-box-content">
+		
+		<div class="tab-content default-tab" id="tab1">
+			<% unless @users.empty? %>		
+				<table class="sortable_table">
+					<thead>
+						<tr>
+							<th>Full name</th>
+							<th>Email address</th>
+							<th>Phone</th>
+							<th>Location</th>
+						</tr>
+					</thead>
+				
+					<tbody>
+						<% @users.each do |user| %>
+						<tr>
+							<td><%= link_to user.full_name, admin_user_path(user) %></td>
+							<td><%= user.email %></td>
+							<td><%= user.phone %></td>
+							<td><%= user.location %></td>
+							<td>
+								<%= link_to image_tag('/images/admin/icons/information.png'), admin_user_path(user) %>	
+							</td>
+						</tr>				
+						<% end %>		
+					</tbody>
+					
+					<tfoot>
+						<tr>
+							<td colspan="6">
+								<%= will_paginate @users %>
+								<div class="clear"></div>
+							</td>
+						</tr>
+					</tfoot>
+				</table>
+			<% end %>
+		</div>
+		
+		<div class="tab-content" id="tab2">
+			<% unless @inactive_users.empty? %>		
+				<table class="sortable_table">
+					<thead>
+						<tr>
+							<th>Full name</th>
+							<th>Email address</th>
+							<th>Phone</th>
+							<th>Location</th>
+						</tr>
+					</thead>
+				
+					<tbody>
+						<% @inactive_users.each do |user| %>
+						<tr>
+							<td><%= link_to user.full_name, admin_user_path(user) %></td>
+							<td><%= user.email %></td>
+							<td><%= user.phone %></td>
+							<td><%= user.location %></td>
+							<td>
+								<%= link_to image_tag('/images/admin/icons/information.png'), admin_user_path(user) %>	
+							</td>
+						</tr>				
+						<% end %>		
+					</tbody>
+					
+					<tfoot>
+						<tr>
+							<td colspan="6">
+								<%= will_paginate @inactive_users %>
+								<div class="clear"></div>
+							</td>
+						</tr>
+					</tfoot>
+				</table>
+			<% else %>
+			<div class="notification information png_bg">
+				<a href="#" class="close"><img src="/images/admin/icons/cross_grey_small.png" title="Close this notification" alt="close" /></a>
+				<div>
+					There are no users pending activation.
+				</div>
+			</div>			
+			<% end %>
+		</div>		
+	</div>
+</div>

@@ -1,0 +1,34 @@
+/* ----- */
+
+.meta-content {
+	background-color: #CCFFFF;
+	padding: 5px 15px 5px 15px;
+	border: 1px solid #CCC;
+	font-size: 11px;
+}
+
+.listing-box table {
+	border-collapse: separate;
+	caption-side: bottom;
+	font-size: 12px;	
+}
+
+.listing-box td { 
+	border:1px solid #CCCCCC;
+	vertical-align: top;
+}
+
+.listing-box th {
+	border:1px solid #CCCCCC;
+	text-align:right;
+	font-weight:bold;
+}
+
+.centered {
+	text-align: center;
+}
+
+.block {
+	float:left;
+	width:48%;
+}

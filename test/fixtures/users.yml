@@ -1,0 +1,30 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+active_user:
+  email: example@example.com
+  full_name: Foo Bar
+  phone: "00000"
+  address: Address
+  Street: Street
+  Island: Island
+  Atoll: Atoll
+  password_salt: <%= salt = Authlogic::Random.hex_token %>
+  crypted_password: <%= Authlogic::CryptoProviders::Sha512.encrypt("password" + salt) %>
+  persistence_token: <%= Authlogic::Random.hex_token %>
+  single_access_token: <%= Authlogic::Random.friendly_token %>
+  perishable_token: "00000"
+  active: true
+  
+inactive_user:
+  email: example2@example.com
+  full_name: Foo Bar
+  phone: "00001"
+  address: Address
+  Street: Street
+  Island: Island
+  Atoll: Atoll
+  password_salt: <%= salt = Authlogic::Random.hex_token %>
+  crypted_password: <%= Authlogic::CryptoProviders::Sha512.encrypt("password" + salt) %>
+  persistence_token: <%= Authlogic::Random.hex_token %>
+  single_access_token: <%= Authlogic::Random.friendly_token %>
+  perishable_token: "00000"

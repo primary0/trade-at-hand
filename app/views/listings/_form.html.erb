@@ -1,0 +1,89 @@
+<% form_for @listing, :html => {:id => 'validatedForm'} do |f| %>
+  
+	<%= error_messages_for 'listing', :header_message => "You have some errors in your listing form.", :message => "Please review the following:" %>
+	<div class="clear"></div>
+
+	<fieldset>
+		
+		<div>
+			<div class="left">
+				<label>Listing type</label>
+			</div>
+			<div class="right">
+				<%= f.collection_select(:listing_type_id, ListingType.all, :id, :name, {}, :class => "select") %>
+				<div class="instructions">Choose if the listing type.</div>
+			</div>
+		</div>
+		<div class="clear"></div>
+		
+		<div>
+			<div class="left">
+				<label>Product category</label>
+			</div>
+			<div class="right">
+				<%= select_tag "product_category_id", options_from_collection_for_select(ProductCategory.all, 'id', 'name'), :prompt => "List products by category", :class => "select" %>
+				<div class="instructions">Pick a product category.</div>							
+			</div>
+		</div>
+		<div class="clear"></div>
+		
+		<div>
+			<div class="left">
+				<label>Product</label>
+			</div>
+			<div class="right">
+				<%= f.collection_select :product_id, Product.all, :id, :name, {}, :class => "select" %>
+				<div class="instructions">The product you wish to buy or sell.</div>							
+			</div>
+		</div>
+		
+	</fieldset>
+	
+	
+	<fieldset>
+		<legend>Quantity and Price</legend>
+		<div>
+			<div class ="left">
+				<label>Quantity</label>
+			</div>
+			<div class="right">
+				<%= f.text_field :quantity, :class => "validate[required,custom[onlyNumber]] input", :size => "20" %> <%= f.collection_select(:measuring_system_id, MeasuringSystem.all, :id, :name, {:include_blank => false}, {:class => "select"}) %>
+				<div class="instructions">The total quantity of items available or requested.</div>							
+			</div>
+		</div>
+		<div class="clear"></div>
+		
+		<div>
+			<div class="left">
+				<label>Price</label>
+			</div>
+			<div class="right">
+				<%= f.text_field :price, :class => "validate[required,custom[onlyNumber]] input", :size => "20" %> <span class="measuring_system_tag">per <span class="measuring_system_tag" id="measuring_system_tag">unit</span></span>
+				<div class="instructions">The selling unit price. Entering this is not required if you are making a buying request.</div>
+			</div>
+		</div>
+		<div class="clear"></div>
+		
+	</fieldset>
+
+  	
+	<fieldset>
+		<legend>Additional Information</legend>
+		<div>
+			<div class="left">
+				<label>Additional information</label>
+			</div>
+			<div class="right">
+				<%= f.text_area :description, :class => "textarea", :cols => "40", :rows => "10" %>
+				<div class="instructions">Please provide a small description of the items you are selling or willing to purchase. This will help potential buyers and sellers know more about your offer.</div>
+			</div>
+		</div>
+	</fieldset>
+	
+	<%= f.hidden_field :user_id %>
+	
+	<div class="right">
+		<%= f.submit "Submit" %>
+	</div>
+
+<% end %>

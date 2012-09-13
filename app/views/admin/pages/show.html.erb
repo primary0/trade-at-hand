@@ -1,0 +1,33 @@
+<% content_for :title do %>		
+	<h2><%= @page.title %></h2>
+	<p id="page-intro">Page details.</p>
+	<div class="clear"></div>
+<% end %>
+
+<div class="content-box column-left">
+	<div class="content-box-header">
+		<h3><%= @page.title %></h3>
+		<div class="clear"></div>		
+	</div>
+	
+	<div class="content-box-content">
+		<%= simple_format(@page.description) %>
+	</div>
+</div>
+
+<div class="content-box column-right">
+	<div class="content-box-header">
+		<h3>Controls</h3>
+	</div>
+	
+	<div class="content-box-content">
+		<p>
+			<img src="/images/admin/icons/arrow-180.png" /> <%= link_to 'Back to List', admin_pages_path %><br />
+			<img src="/images/admin/icons/pencil.png" /> <%= link_to 'Edit', edit_admin_page_path(@page) %><br />
+		</p>
+	</div>
+	
+</div>
+<div class="clear"></div>
+
+

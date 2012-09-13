@@ -1,0 +1,42 @@
+<% content_for :title do %>		
+	<h2>Report Generation</h2>
+	<p id="page-intro">Report generation and downloads.</p>
+	<div class="clear"></div>
+<% end %>
+
+
+<div class="content-box">
+	
+	<div class="content-box-header">
+		<h3>Report Templates</h3>
+		<div class="clear"></div>
+	</div>
+	
+	<div class="content-box-content">		
+		<% form_tag "/admin/reports" do |f|  %>
+			<fieldset>
+				<p>	
+					<label>Listing Type</label>
+			   	<%= select_tag "search[listing_type_id]", options_from_collection_for_select(ListingType.all, 'id', 'name'), :prompt => "All", :class => "select" %>
+				</p>				
+				<p>	
+					<label>Product Category</label>
+			   	<%= select_tag "product_category_id", options_from_collection_for_select(ProductCategory.all, 'id', 'name'), :prompt => "Choose Category", :class => "select" %>
+				</p>
+				<p>	
+					<label>Product</label>
+			   	<%= select_tag "search[product_id]", options_from_collection_for_select(Product.all, 'id', 'name'), :prompt => "All", :class => "select" %>
+				</p>
+				<p>	
+					<label>Time period</label>
+			   	From &nbsp;<%= date_select("range", "from_date", :order => [:month, :day, :year]) %><br />
+					To &nbsp;&nbsp;&nbsp;&nbsp; <%= date_select("range", "to_date", :order => [:month, :day, :year])%>
+				</p>											
+				<p>
+				  <%= submit_tag "Generate", :class => 'button' %> | <a href="javascript:history.back()">Back</a>
+				</p>
+			</fieldset>
+		<% end %>
+		
+	</div>
+</div>

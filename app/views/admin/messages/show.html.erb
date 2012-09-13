@@ -1,0 +1,32 @@
+<% content_for :title do %>		
+	<h2>Message</h2>
+	<p id="page-intro">SMS view.</p>
+	<div class="clear"></div>
+<% end %>
+
+<div class="content-box column-left">
+	<div class="content-box-header">
+		<h3>From <%= @message.msisdn %></h3>
+		<div class="clear"></div>		
+	</div>
+	
+	<div class="content-box-content">
+		<%= simple_format(@message.message) %>
+	</div>
+</div>
+
+<div class="content-box column-right">
+	<div class="content-box-header">
+		<h3>Controls</h3>
+	</div>
+	
+	<div class="content-box-content">
+		<p>
+			<img src="/images/admin/icons/arrow-180.png" /> <%= link_to 'Back to List', admin_messages_path %><br />
+			<img src="/images/admin/icons/cross.png" /> <%= link_to 'Remove', admin_message_path(@message), :method => :delete, :confirm => 'Are you sure you want to delete this product category?' %><br />
+		</p>
+	</div>
+	
+</div>
+<div class="clear"></div>
+

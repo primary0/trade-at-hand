@@ -1,0 +1,49 @@
+<% content_for :title do %>		
+	<h2>Articles</h2>
+	<p id="page-intro">Static content articles.</p>
+	<div class="clear"></div>
+<% end %>
+
+
+<div class="content-box">
+	
+	<div class="content-box-header">
+		<h3>Articles</h3>
+		<div class="clear"></div>
+	</div>
+	
+	<div class="content-box-content">
+		
+		<% unless @article_categories.empty? %>
+			<table class="sortable_table">
+				<thead>
+					<tr>
+						<th>Name</th>
+						<th class="centered">No. of sections</th>
+					</tr>
+				</thead>
+			
+				<tbody>
+					<% @article_categories.each do |article_category| %>
+					<tr>
+						<td><%= link_to article_category.name, admin_article_category_path(article_category) %></td>
+						<td class="centered"><%= article_category.articles.length %></td>
+						<td>
+							<%= link_to image_tag('/images/admin/icons/information.png'), admin_article_category_path(article_category) %>	
+						</td>
+					</tr>				
+					<% end %>		
+				</tbody>
+				
+				<tfoot>
+					<tr>
+						<td colspan="6">
+							<%= will_paginate @article_categories %>
+							<div class="clear"></div>
+						</td>
+					</tr>
+				</tfoot>
+			</table>
+		<% end %>			
+	</div>
+</div>

@@ -1,0 +1,73 @@
+<% content_for :title do %>		
+	<h2><%= @article_category.name %></h2>
+	<p id="page-intro">Article information.</p>
+	<div class="clear"></div>
+<% end %>
+
+<div class="content-box column-left">
+	<div class="content-box-header">
+		<h3><%= @article_category.name %></h3>
+		<div class="clear"></div>		
+	</div>
+	
+	<div class="content-box-content">
+		<%= simple_format(@article_category.description) %>
+	</div>
+</div>
+
+<div class="content-box column-right">
+	<div class="content-box-header">
+		<h3>Controls</h3>
+	</div>
+	
+	<div class="content-box-content">
+		<p>
+			<img src="/images/admin/icons/arrow-180.png" /> <%= link_to 'Back to List', admin_article_category_path %><br />
+			<img src="/images/admin/icons/pencil.png" /> <%= link_to 'Edit', edit_admin_article_category_path(@article_category) %><br />		
+		</p>
+	</div>
+	
+</div>
+<div class="clear"></div>
+
+<div class="content-box">
+	
+	<div class="content-box-header">
+		<h3>Sections</h3>
+		<ul class="content-box-tabs">
+			<%= link_to image_tag('admin/icons/plus.png'), new_admin_article_path(:article_category => @article_category) %>
+		</ul>
+		<div class="clear"></div>
+	</div>
+	
+	<div class="content-box-content">
+		
+		<% unless @article_category.articles.empty? %>
+			<table class="sortable_table">
+				<thead>
+					<tr>
+						<th>Name</th>
+						<th>Created at</th>
+						<th>Updated at</th>						
+					</tr>
+				</thead>
+			
+				<tbody>
+					<% @article_category.articles.each do |article| %>
+					<tr>
+						<td><%= link_to article.title, admin_article_path(article) %></td>
+						<td><%= article.created_at.to_date %></td>
+						<td><%= article.updated_at.to_date %></td>
+						<td>
+							<%= link_to image_tag('/images/admin/icons/information.png'), admin_article_path(article) %>	
+						</td>
+					</tr>				
+					<% end %>		
+				</tbody>
+				
+			</table>
+		<% end %>			
+	</div>
+</div>
+
+

@@ -1,0 +1,52 @@
+<% content_for :title do %>		
+	<h2>Listing Types</h2>
+	<p id="page-intro">The categories which the user advertisements belong to.</p>
+	<div class="clear"></div>
+<% end %>
+
+
+<div class="content-box">
+	
+	<div class="content-box-header">
+		<h3>Listing types</h3>
+		<ul class="content-box-tabs">
+			<%= link_to image_tag('admin/icons/plus.png'), new_admin_listing_type_path %>
+		</ul>
+		<div class="clear"></div>
+	</div>
+	
+	<div class="content-box-content">
+		
+		<% unless @listing_types.empty? %>
+			<table class="sortable_table">
+				<thead>
+					<tr>
+						<th>Name</th>
+						<th class="centered">No. of Listings</th>
+					</tr>
+				</thead>
+			
+				<tbody>
+					<% @listing_types.each do |listing_type| %>
+					<tr>
+						<td><%= link_to listing_type.name, admin_listing_type_path(listing_type) %></td>
+						<td class="centered"><%= listing_type.listings.active.length %></td>
+						<td>
+							<%= link_to image_tag('/images/admin/icons/information.png'), admin_listing_type_path(listing_type) %>	
+						</td>
+					</tr>				
+					<% end %>		
+				</tbody>
+				
+				<tfoot>
+					<tr>
+						<td colspan="6">
+							<%= will_paginate @listing_types %>
+							<div class="clear"></div>
+						</td>
+					</tr>
+				</tfoot>
+			</table>
+		<% end %>			
+	</div>
+</div>

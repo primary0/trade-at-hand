@@ -1,0 +1,54 @@
+<% content_for :title do %>		
+	<h2>Product Categories</h2>
+	<p id="page-intro">The categories which the products in the system belong to.</p>
+	<div class="clear"></div>
+<% end %>
+
+
+<div class="content-box">
+	
+	<div class="content-box-header">
+		<h3>Product categories</h3>
+		<ul class="content-box-tabs">
+			<%= link_to image_tag('admin/icons/plus.png'), new_admin_product_category_path %>
+		</ul>
+		<div class="clear"></div>
+	</div>
+	
+	<div class="content-box-content">
+		
+		<% unless @product_categories.empty? %>
+			<table class="sortable_table">
+				<thead>
+					<tr>
+						<th>Name</th>
+						<th class="centered">No. of Products</th>
+						<th class="centered">No. of Listings</th>
+					</tr>
+				</thead>
+			
+				<tbody>
+					<% @product_categories.each do |product_category| %>
+					<tr>
+						<td><%= link_to product_category.name, admin_product_category_path(product_category) %></td>
+						<td class="centered"><%= product_category.products.length %></td>
+						<td class="centered"><%= product_category.products.collect{|n|n.listings.count}.sum %></td>
+						<td>
+							<%= link_to image_tag('/images/admin/icons/information.png'), admin_product_category_path(product_category) %>	
+						</td>
+					</tr>				
+					<% end %>		
+				</tbody>
+				
+				<tfoot>
+					<tr>
+						<td colspan="6">
+							<%= will_paginate @product_categories %>
+							<div class="clear"></div>
+						</td>
+					</tr>
+				</tfoot>
+			</table>
+		<% end %>			
+	</div>
+</div>

@@ -1,0 +1,33 @@
+<% content_for :title do %>		
+	<h2><%= @article.title %></h2>
+	<p id="page-intro">Article section details.</p>
+	<div class="clear"></div>
+<% end %>
+
+<div class="content-box column-left">
+	<div class="content-box-header">
+		<h3><%= @article.title %></h3>
+		<div class="clear"></div>		
+	</div>
+	
+	<div class="content-box-content">
+		<%= simple_format(@article.description) %>
+	</div>
+</div>
+
+<div class="content-box column-right">
+	<div class="content-box-header">
+		<h3>Controls</h3>
+	</div>
+	
+	<div class="content-box-content">
+		<p>
+			<img src="/images/admin/icons/arrow-180.png" /> <%= link_to 'Back to List', admin_article_category_path(@article.article_category) %><br />
+			<img src="/images/admin/icons/pencil.png" /> <%= link_to 'Edit', edit_admin_article_path(@article) %><br />
+		</p>
+	</div>
+	
+</div>
+<div class="clear"></div>
+
+

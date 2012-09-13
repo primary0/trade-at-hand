@@ -1,0 +1,100 @@
+<% content_for :title, "Item Details (#{@listing.listing_type.name})" %>
+
+
+<div id="main">
+	<div id="itemdetails">
+	
+		<h2><%= @listing.product.name %> (<%= @listing.listing_type.name.downcase %> offer)</h2>
+							
+		<table class="item_details_table" summary="Item Details">
+			<tr>
+				<th scope="row">Product</th>
+				<td><%= @listing.product.name %></td>
+			</tr>			
+			<tr>
+				<th scope="row">Quantity</th>
+				<td><%= @listing.real_quantity %></td>
+			</tr>
+			<% if @listing.price %>
+			<tr>
+				<th scope="row">Price</th>
+				<td><%= @listing.rate %></td>
+			</tr>
+			<% end %>
+			<tr>
+				<th scope="row">Ends In</th>
+				<td>
+					<% if @listing.sold %>
+						Items on this listing are marked as sold by the seller.
+					<% else %>
+						<%= @listing.real_expiry %>
+					<% end %>
+				</td>
+			</tr>
+			<% if !@listing.description == "" %>
+				<tr>
+					<th scope="row">Description</th>
+					<td><%= @listing.description %></td>
+				</tr>
+			<% end %>
+		</table>
+		<div class="clear"></div>
+			
+		<h2><%= @listing.listing_type.name %>er Contact Details</h2>
+
+		<table class="item_details_table">
+			<tr>
+				<th scope="row">Contact Person</th>
+				<td><%= link_to @listing.user.full_name, user_path(@listing.user) %> (<%= recommendations_count(@listing.user) %>)</td>
+			</tr>			
+			<tr>
+				<th scope="row">Phone</th>
+				<td><%= @listing.user.phone %></td>
+			</tr>
+			<% if @listing.user.email %>
+				<tr>
+					<th scope="row">E-mail</th>
+					<td><%= @listing.user.email %></td>
+				</tr>
+			<% end %>
+			<% if @listing.user.address && @listing.user.street %>
+				<tr>
+					<th scope="row">Address</th>
+					<td><%= @listing.user.address %></td>
+				</tr>
+				<tr>
+					<th scope="row">Street</th>
+					<td><%= @listing.user.street %></td>
+				</tr>
+			<% end %>
+			<tr>
+				<th scope="row">Island</th>
+				<td><%= @listing.user.location %></td>
+			</tr>
+		</table>
+		
+		
+		<% if current_user %>		
+			<table class="item_details_table">
+				<tr>
+					<th scope="row">Email listing to a friend</th>
+					<td>
+						<% form_tag ({:controller => 'listings', :action => 'send_listing'}, :id => "form") do %>
+							<fieldset style="border:none">
+									<div>							
+										<%= text_field_tag :email, {}, :class => "input", :size => 40 %>	
+										<%= hidden_field_tag :listing_id, @listing.id %>									
+										<%= submit_tag "Send" %>									
+									</div>
+									<div class="clear"></div>				
+							</fieldset>
+						<% end %>			
+					</td>
+				</tr>
+			</table>		
+		<% end %>
+		
+		</div><!--end itemdetails-->		
+
+
+</div><!--end main-->
